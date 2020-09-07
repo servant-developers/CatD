@@ -21,6 +21,8 @@ export const Button: React.FC<ButtonProps> = ({
   const mode = primary
     ? 'storybook-button--primary'
     : 'storybook-button--secondary';
+
+  console.log('zz');
   return (
     <button
       type="button"

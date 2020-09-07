@@ -23,6 +23,8 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-docs": "^6.0.21",
     "@storybook/addon-essentials": "^6.0.21",
@@ -35,6 +37,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
     "css-loader": "^4.2.2",
+    "husky": "^4.3.0",
     "jest": "^26.4.2",
     "jest-css-modules": "^2.1.0",
     "react-docgen-typescript-loader": "^3.7.2",
@@ -54,5 +57,15 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
 }

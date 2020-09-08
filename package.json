@@ -1,7 +1,8 @@
 {
   "name": "react-uikit-catd",
   "version": "1.0.0",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "repository": "https://github.com/servant-developers/CatD.git",
   "author": "servant-developers",
   "scripts": {

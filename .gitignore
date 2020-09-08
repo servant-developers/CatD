@@ -3,7 +3,6 @@ node_modules
 storybook-static
 
 .idea
-.vscode
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,visualstudiocode

@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { action } from '@storybook/addon-actions';
 
-import { Button, ButtonProps, Size } from './Button';
+import { Button, ButtonProps } from './Button';
 
 export default {
   title: 'Example/Button',

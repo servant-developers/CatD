@@ -4,6 +4,7 @@ import babel from 'rollup-plugin-babel';
 import pkg from './package.json';
 import svgr from '@svgr/rollup';
 import url from 'rollup-plugin-url';
+import scss from 'rollup-plugin-scss';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
@@ -21,6 +22,7 @@ export default {
     babel({ extensions, include: ['src/**/*'], runtimeHelpers: true }),
     url(),
     svgr(),
+    scss(),
   ],
   output: [
     {

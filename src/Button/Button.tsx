@@ -1,38 +1,49 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import './button.scss';
 
-export type Size = 'small' | 'medium' | 'large';
+export type TypeOfButton = 'default' | 'primary' | 'danger';
+export type SizeOfButton = 'small' | 'medium' | 'large';
+export type StyleOfButton = 'fill' | 'outlined' | 'dashed' | 'text';
 
 export interface ButtonProps {
-  primary?: boolean;
-  backgroundColor?: string;
-  size?: Size;
-  label: string;
+  text: string;
+  type?: TypeOfButton;
+  style?: StyleOfButton;
+  size?: SizeOfButton;
+  disabled?: boolean;
+  hasFullWidth?: boolean;
   onClick?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
-  primary = false,
+  text,
+  type = 'default',
+  style = 'fill',
   size = 'medium',
-  backgroundColor,
-  label,
+  disabled = false,
+  hasFullWidth = false,
   ...props
 }) => {
-  const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
+  const combinedClass = [
+    'catd-button',
+    `catd-button__type--${type}`,
+    `catd-button__size--${size}`,
+    `catd-button__style--${style}`,
+  ].join(' ');
 
-  console.log('zz');
+  const appendedStyle = {
+    width: hasFullWidth ? '100%' : 'auto',
+  } as CSSProperties;
+
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' '
-      )}
-      style={{ backgroundColor }}
+      className={combinedClass}
+      disabled={disabled}
+      style={appendedStyle}
       {...props}
     >
-      {label}
+      <span>{text}</span>
     </button>
   );
 };

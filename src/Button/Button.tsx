@@ -1,38 +1,46 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import './button.scss';
 
-export type Size = 'small' | 'medium' | 'large';
+export type Size = 'small' | 'large';
+export type Type = 'default' | 'primary' | 'danger' | 'text' | 'link';
 
 export interface ButtonProps {
-  primary?: boolean;
-  backgroundColor?: string;
+  text: string;
+  type?: Type;
+  danger?: boolean;
+  disabled?: boolean;
   size?: Size;
-  label: string;
+  block?: boolean;
   onClick?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
+  text,
+  type = 'default',
+  danger = false,
+  disabled = false,
+  size = 'large',
+  block = false,
   ...props
 }) => {
-  const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
+  const className = [
+    'jmin-button',
+    `jmin-button--${type}`,
+    `jmin-button--${size}`,
+  ].join(' ');
+  const style = {
+    width: block ? '100&' : 'auto',
+  } as CSSProperties;
 
-  console.log('zz');
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' '
-      )}
-      style={{ backgroundColor }}
+      className={className}
+      disabled={disabled}
+      style={style}
       {...props}
     >
-      {label}
+      <span>{text}</span>
     </button>
   );
 };

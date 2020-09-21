@@ -1,35 +1,50 @@
-.storybook-button {
+.jmin-button {
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
   border: 0;
-  border-radius: 3em;
+  border-radius: 3px;
   cursor: pointer;
   display: inline-block;
   line-height: 1;
 }
 
-.storybook-button--primary {
+.jmin-button:disabled {
+  cursor: not-allowed;
+  background-color: #f2f2f2;
+}
+
+// types
+.jmin-button--default {
+  color: black;
+  border-color: red;
+}
+.jmin-button--primary {
   color: white;
-  background-color: #1ea7fd;
+  background-color: #2182fa;
+  border-color: #2182fa;
+}
+.jmin-button--danger {
+  color: white;
+  background-color: #ff414c;
+  border-color: #ff414c;
+}
+.jmin-button--text {
+  color: black;
+}
+.jmin-button--link {
+  color: #2182fa;
 }
 
-.storybook-button--secondary {
-  color: #333;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.15) 0 0 0 1px inset;
-}
-
-.storybook-button--small {
+// sizes
+.jmin-button--small {
   font-size: 12px;
   padding: 10px 16px;
 }
-
-.storybook-button--medium {
+.jmin-button--medium {
   font-size: 14px;
   padding: 11px 20px;
 }
-
-.storybook-button--large {
+.jmin-button--large {
   font-size: 16px;
   padding: 12px 24px;
 }

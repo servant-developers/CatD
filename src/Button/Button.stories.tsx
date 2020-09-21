@@ -9,35 +9,31 @@ export default {
   parameters: {
     componentSubtitle: '연습용 버튼입니다',
   },
-  component: Button,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as Meta;
 
 const Template: Story<ButtonProps> = (args: ButtonProps) => (
   <Button {...args} onClick={action('button clicked')} />
 );
 
+export const Default = Template.bind({});
+Default.args = {
+  text: 'default',
+};
+
 export const Primary = Template.bind({});
 Primary.args = {
-  primary: true,
-  label: 'Button',
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Secondary',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Large',
+  type: 'primary',
+  text: 'primary',
 };
 
 export const Small = Template.bind({});
 Small.args = {
   size: 'small',
-  label: 'Small',
+  text: 'small',
+};
+
+export const Block = Template.bind({});
+Block.args = {
+  block: true,
+  text: 'block',
 };

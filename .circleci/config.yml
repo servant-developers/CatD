@@ -1,48 +1,83 @@
 version: 2.1
 
+commands:
+  build:
+    steps:
+    - run:
+        command: mkdir -p artifacts
+    - run: yarn build
+  eslint:
+    steps:
+    - run:
+        command: mkdir -p reports/eslint
+    - run: yarn eslint-all
+  install:
+    steps:
+    - run: yarn install
+  stylelint:
+    steps:
+    - run:
+        command: mkdir -p artifacts/stylelint
+    - run: yarn stylelint-all
+  test:
+    steps:
+      - run:
+          command: yarn add --dev jest-junit
+      - run:
+          command: yarn test --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+
 executors:
-  node:
-    docker:
-      - image: circleci/node:10.15.0
-
-references:
-  workspace_root: &workspace_root
-    /home/circleci/catD
-
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
-
-  defaults: &defaults
-    working_directory: *workspace_root
+  default:
     docker:
       - image: circleci/node:10.15.0
 
 jobs:
   install:
-    <<: *defaults
+    executor: default
     steps:
-      - checkout
-      - restore_cache:
-            keys:
-              - yarn-cache-{{ checksum "yarn.lock" }}
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: yarn-cache-{{ checksum "yarn.lock" }}
-
-  lint:
-    <<: *defaults
+      before_install:
+        default:
+        - checkout
+    - add_ssh_keys:
+        fingerprints:
+          - '7f:21:19:eb:46:d1:8a:49:1a:f5:10:2f:b9:28:d6:65'
+    - run:
+      command: git clone https://github.com/servant-developers/CatD.git .
+    - restore_cache:
+        key: v1-node-modules-{{ checksum "yarn.lock" }}
+    - install
+    - persist_to_workspace:
+        paths:
+        - project
+        root: ~/
+    - save_cache:
+        key: v1-node-modules-{{ checksum "yarn.lock" }}
+        paths:
+        - ~/project/node_modules
+  eslint:
+    executor: default
     steps:
-      - *attach_workspace
-      - run: yarn eslint-all
-  style:
-    <<: *defaults
+      - attach_workspace:
+        at: ~/
+      - eslint
+      - store_test_results:
+          path: reports/eslint
+      - store_artifacts:
+          path: reports/eslint
+  stylelint:
+    executor: default
     steps:
-      - *attach_workspace
-      - run: yarn stylelint-all
-
+    - attach_workspace:
+        at: ~/
+    - run:
+        command: mkdir -p artifacts/stylelint
+    - stylelint
+    - store_test_results:
+        path: ./artifacts
+    - store_artifacts:
+        path: ./artifacts
   typecheck:
     <<: *defaults
     steps:
@@ -50,10 +85,16 @@ jobs:
       - run: yarn typecheck
 
   test:
-    <<: *defaults
+    executor: default
     steps:
-      - *attach_workspace
-      - run: yarn test
+    - attach_workspace:
+        at: ~/
+    - test
+    - store_test_results:
+        path: reports/junit
+    - store_artifacts:
+        path: reports/junit
+
 
 workflows:
   lint_and_test:

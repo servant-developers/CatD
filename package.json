@@ -10,7 +10,10 @@
     "build-storybook": "build-storybook",
     "build": "rollup -c",
     "build:types": "tsc --emitDeclarationOnly",
-    "test": "jest"
+    "test": "jest --forceExit",
+    "eslint-all": "eslint 'src/**/*.+(js|ts)?(x)'",
+    "stylelint-all": "stylelint '**/*.{css,scss,sass}'",
+    "typecheck": "tsc"
   },
   "jest": {
     "moduleNameMapper": {

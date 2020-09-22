@@ -13,10 +13,14 @@ references:
     attach_workspace:
       at: *workspace_root
 
-jobs:
-  install:
+  defaults: &defaults
+    working_directory: *workspace_root
     docker:
       - image: circleci/node:10.15.0
+
+jobs:
+  install:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -29,36 +33,24 @@ jobs:
           key: yarn-cache-{{ checksum "yarn.lock" }}
 
   lint:
-    docker:
-      - image: circleci/node:10.15.0
+    <<: *defaults
     steps:
       - *attach_workspace
-      - when:
-        condition: eslint
-        steps:
-          - run: yarn eslint-all
-      - unless:
-        condition: eslint
-        steps:
-          - run: yarn eslint-all
-
+      - run: yarn eslint-all
   style:
-    docker:
-      - image: circleci/node:10.15.0
+    <<: *defaults
     steps:
       - *attach_workspace
       - run: yarn stylelint-all
 
   typecheck:
-    docker:
-      - image: circleci/node:10.15.0
+    <<: *defaults
     steps:
       - *attach_workspace
       - run: yarn typecheck
 
   test:
-    docker:
-      - image: circleci/node:10.15.0
+    <<: *defaults
     steps:
       - *attach_workspace
       - run: yarn test

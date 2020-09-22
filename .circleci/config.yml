@@ -34,14 +34,13 @@ install:
       - run: yarn test
 
 workflows:
-  deploy:
-    jobs:
-      - lint:
-          requires:
-            - install
-      - typecheck:
-          requires:
-            - install
-      - test:
-          requires:
-            - install
+  jobs:
+    - lint:
+        requires:
+          - install
+    - typecheck:
+        requires:
+          - install
+    - test:
+        requires:
+          - install

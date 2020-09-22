@@ -50,7 +50,10 @@ workflows:
           branches:
             ignore:
               - master
-    - lint:
+    - eslint:
+        requires:
+          - install
+    - stylelint:
         requires:
           - install
     - typecheck:

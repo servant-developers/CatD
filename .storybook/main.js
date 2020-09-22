@@ -23,6 +23,7 @@ module.exports = {
           options: {
             presets: [
               ['babel-preset-react-app', { flow: false, typescript: true }],
+              require.resolve('@emotion/babel-preset-css-prop'),
             ],
           },
         },

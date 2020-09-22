@@ -11,7 +11,7 @@ export default {
   },
   component: Button,
   argTypes: {
-    backgroundColor: { control: 'color' },
+    basicColor: { control: 'color' },
   },
 } as Meta;
 
@@ -19,25 +19,7 @@ const Template: Story<ButtonProps> = (args: ButtonProps) => (
   <Button {...args} onClick={action('button clicked')} />
 );
 
-export const Primary = Template.bind({});
-Primary.args = {
-  primary: true,
-  label: 'Button',
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Secondary',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Large',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Small',
-};
+export const CatdButton = Template.bind({});
+CatdButton.args = {
+  text: 'Button',
+} as ButtonProps;

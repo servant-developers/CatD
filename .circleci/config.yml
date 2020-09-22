@@ -55,8 +55,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - '7f:21:19:eb:46:d1:8a:49:1a:f5:10:2f:b9:28:d6:65'
-      - run:
-          command: git clone https://github.com/servant-developers/CatD.git .
       - restore_cache:
           key: v1-node-modules-{{ checksum "yarn.lock" }}
       - install

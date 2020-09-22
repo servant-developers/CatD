@@ -1,0 +1,133 @@
+version: 2.1
+
+commands:
+  build:
+    steps:
+    - run:
+        command: mkdir -p artifacts
+    - run: yarn build
+  eslint:
+    steps:
+    - run:
+        command: mkdir -p reports/eslint
+    - run: yarn eslint-all
+  install:
+    steps:
+    - run: yarn install
+  stylelint:
+    steps:
+    - run:
+        command: mkdir -p artifacts/stylelint
+    - run: yarn stylelint-all
+  typecheck:
+    steps:
+    - run:
+        command: mkdir -p artifacts/typecheck
+    - run: yarn typecheck
+  test:
+    steps:
+      - run:
+          command: yarn add --dev jest-junit
+      - run:
+          command: yarn test --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+
+executors:
+  default:
+    docker:
+      - image: circleci/node:10.15.0
+
+jobs:
+  install:
+    description: |
+      Install dependencies. Checkout is called before install. (Optional) To prevent checkout from being called, pass your steps to before_install.
+    executor: default
+    parameters:
+      before_install:
+        default:
+        - checkout
+        description: |
+          Steps to be executed before restoring cache and running install. Default is to run 'checkout' command.
+        type: steps
+    steps:
+      - steps: <<parameters.before_install>>
+      - add_ssh_keys:
+          fingerprints:
+            - '7f:21:19:eb:46:d1:8a:49:1a:f5:10:2f:b9:28:d6:65'
+      - restore_cache:
+          key: v1-node-modules-{{ checksum "yarn.lock" }}
+      - install
+      - persist_to_workspace:
+          paths:
+          - project
+          root: ~/
+      - save_cache:
+          key: v1-node-modules-{{ checksum "yarn.lock" }}
+          paths:
+          - ~/project/node_modules
+  eslint:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - eslint
+      - store_test_results:
+          path: reports/eslint
+      - store_artifacts:
+          path: reports/eslint
+  stylelint:
+    executor: default
+    steps:
+    - attach_workspace:
+        at: ~/
+    - run:
+        command: mkdir -p artifacts/stylelint
+    - stylelint
+    - store_test_results:
+        path: ./artifacts
+    - store_artifacts:
+        path: ./artifacts
+  typecheck:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - typecheck
+      - store_test_results:
+          path: reports/typecheck
+      - store_artifacts:
+          path: reports/typecheck
+
+  test:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/
+      - test
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
+
+
+workflows:
+  lint_and_test:
+    jobs:
+      - install:
+          filters:
+            branches:
+              ignore:
+                - master
+      - eslint:
+          requires:
+            - install
+      - stylelint:
+          requires:
+            - install
+      - typecheck:
+          requires:
+            - install
+      - test:
+          requires:
+            - install

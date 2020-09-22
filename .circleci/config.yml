@@ -116,10 +116,10 @@ workflows:
             branches:
               ignore:
                 - master
-      - lint:
+      - eslint:
           requires:
             - install
-      - style:
+      - stylelint:
           requires:
             - install
       - typecheck:

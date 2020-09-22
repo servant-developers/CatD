@@ -19,6 +19,11 @@ commands:
     - run:
         command: mkdir -p artifacts/stylelint
     - run: yarn stylelint-all
+  typecheck:
+    steps:
+    - run:
+        command: mkdir -p artifacts/typecheck
+    - run: yarn typecheck
   test:
     steps:
       - run:

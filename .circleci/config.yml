@@ -72,7 +72,7 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-        at: ~/
+          at: ~/
       - eslint
       - store_test_results:
           path: reports/eslint
@@ -94,7 +94,7 @@ jobs:
     executor: default
     steps:
       - attach_workspace:
-        at: ~/
+          at: ~/
       - typecheck
       - store_test_results:
           path: reports/typecheck

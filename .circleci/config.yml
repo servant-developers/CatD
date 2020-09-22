@@ -13,7 +13,6 @@ references:
     attach_workspace:
       at: *workspace_root
 
-
 jobs:
   install:
     steps:
@@ -27,12 +26,20 @@ jobs:
             - node_modules
           key: yarn-cache-{{ checksum "yarn.lock" }}
 
-  eslint:
+  lint:
     steps:
       - *attach_workspace
       - run: yarn eslint-all
+      - when:
+        condition: eslint
+        steps:
+          - run: echo "preinstall"
+      - unless:
+        condition: << parameters.preinstall-foo >>
+        steps:
+          - run: echo "don't preinstall"      
 
-  stylelint:
+  style:
     steps:
       - *attach_workspace
       - run: yarn stylelint-all
@@ -54,10 +61,10 @@ workflows:
           branches:
             ignore:
               - master
-    - eslint:
+    - lint:
         requires:
           - install
-    - stylelint:
+    - style:
         requires:
           - install
     - typecheck:

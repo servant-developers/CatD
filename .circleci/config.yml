@@ -5,6 +5,15 @@ executors:
     docker:
       - image: circleci/node:10.15.0
 
+references:
+  workspace_root: &workspace_root
+    /home/circleci/catD
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+
 jobs:
   install:
     steps:
@@ -20,18 +29,22 @@ jobs:
 
   eslint:
     steps:
+      - *attach_workspace
       - run: yarn eslint-all
 
   stylelint:
     steps:
+      - *attach_workspace
       - run: yarn stylelint-all
 
   typecheck:
     steps:
+      - *attach_workspace
       - run: yarn typecheck
 
   test:
     steps:
+      - *attach_workspace
       - run: yarn test
 
 workflows:

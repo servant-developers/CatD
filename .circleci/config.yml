@@ -16,6 +16,10 @@ commands:
             - '7f:21:19:eb:46:d1:8a:49:1a:f5:10:2f:b9:28:d6:65'
 
 jobs:
+install:
+  steps:
+    - checkout
+    - run: npm install
   eslint:
     steps:
       - run: yarn eslint-all

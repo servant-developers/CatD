@@ -86,21 +86,26 @@ jobs:
     - store_artifacts:
         path: ./artifacts
   typecheck:
-    <<: *defaults
+    executor: default
     steps:
-      - *attach_workspace
-      - run: yarn typecheck
+      - attach_workspace:
+        at: ~/
+      - typecheck
+      - store_test_results:
+          path: reports/typecheck
+      - store_artifacts:
+          path: reports/typecheck
 
   test:
     executor: default
     steps:
-    - attach_workspace:
-        at: ~/
-    - test
-    - store_test_results:
-        path: reports/junit
-    - store_artifacts:
-        path: reports/junit
+      - attach_workspace:
+          at: ~/
+      - test
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
 
 
 workflows:

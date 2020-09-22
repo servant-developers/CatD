@@ -6,8 +6,7 @@ executors:
       - image: circleci/node:10.15.0
 
 commands:
-  install_dependencies:
-    ...
+  install_dependencies: ...
   set_deploy_key:
     description: Sets the ssh key for project access
     steps:
@@ -16,32 +15,33 @@ commands:
             - '7f:21:19:eb:46:d1:8a:49:1a:f5:10:2f:b9:28:d6:65'
 
 jobs:
-  ...
-    deploy:
-      executor: node
-      steps:
-        - set_deploy_key
-        - checkout
-        - install_dependencies
-        - run:
-            name: Deploy
-            command: yarn deploy
+  install:
+    steps:
+      - set_deploy_key
+      - checkout
+      - install_dependencies
+      - run: yarn install
+  eslint:
+    steps:
+      - run: yarn eslint-all
+  stylelint:
+    steps:
+      - run: yarn stylelint-all
+  typecheck:
+    steps:
+      - run: yarn typecheck
+  test:
+    steps:
+      - run: yarn test
 
 workflows:
-  deploy:
-    jobs:
-      - lint:
-          filters:
-            branches:
-              ignore: 'gh-pages'
-      - test:
-          filters:
-            branches:
-              ignore: 'gh-pages'
-      - deploy:
-          filters:
-            branches:
-              only: master
-          requires:
-            - lint
-            - test
+  jobs:
+    - lint:
+        requires:
+          - install
+    - typecheck:
+        requires:
+          - install
+    - test:
+        requires:
+          - install

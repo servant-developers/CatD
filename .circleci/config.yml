@@ -35,6 +35,11 @@ install:
 
 workflows:
   jobs:
+  - install:
+    filters:
+      branches:
+        ignore:
+          - master
     - lint:
         requires:
           - install

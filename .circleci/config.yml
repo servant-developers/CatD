@@ -33,15 +33,14 @@ jobs:
       - image: circleci/node:10.15.0
     steps:
       - *attach_workspace
-      - run: yarn eslint-all
       - when:
         condition: eslint
         steps:
-          - run: echo "preinstall"
+          - run: yarn eslint-all
       - unless:
-        condition: << parameters.preinstall-foo >>
+        condition: eslint
         steps:
-          - run: echo "don't preinstall"      
+          - run: yarn eslint-all
 
   style:
     docker:
@@ -65,21 +64,22 @@ jobs:
       - run: yarn test
 
 workflows:
-  jobs:
-    - install:
-        filters:
-          branches:
-            ignore:
-              - master
-    - lint:
-        requires:
-          - install
-    - style:
-        requires:
-          - install
-    - typecheck:
-        requires:
-          - install
-    - test:
-        requires:
-          - install
+  lint_and_test:
+    jobs:
+      - install:
+          filters:
+            branches:
+              ignore:
+                - master
+      - lint:
+          requires:
+            - install
+      - style:
+          requires:
+            - install
+      - typecheck:
+          requires:
+            - install
+      - test:
+          requires:
+            - install

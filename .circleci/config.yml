@@ -19,7 +19,7 @@ jobs:
 install:
   steps:
     - checkout
-    - run: npm install
+    - run: yarn install
   eslint:
     steps:
       - run: yarn eslint-all

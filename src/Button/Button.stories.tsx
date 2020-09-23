@@ -26,6 +26,30 @@ Primary.args = {
   text: 'primary',
 };
 
+export const Danger = Template.bind({});
+Danger.args = {
+  type: 'danger',
+  text: 'danger',
+};
+
+export const Warning = Template.bind({});
+Warning.args = {
+  type: 'warning',
+  text: 'warning',
+};
+
+export const Link = Template.bind({});
+Link.args = {
+  type: 'link',
+  text: 'link',
+};
+
+export const Unabled = Template.bind({});
+Unabled.args = {
+  size: 'small',
+  text: 'small',
+};
+
 export const Small = Template.bind({});
 Small.args = {
   size: 'small',
@@ -36,4 +60,24 @@ export const Block = Template.bind({});
 Block.args = {
   block: true,
   text: 'block',
+};
+
+export const Primary_Disabled = Template.bind({});
+Primary_Disabled.args = {
+  type: 'primary',
+  disabled: true,
+  text: 'primary & disabled',
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
+  text: 'loading',
+};
+
+export const Loading2 = Template.bind({});
+Loading2.args = {
+  type: 'primary',
+  isLoading: true,
+  text: 'loading',
 };

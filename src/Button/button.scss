@@ -1,50 +1,99 @@
 .jmin-button {
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  border: 0;
+  font-weight: 300;
+  border: solid 0.5px gray;
   border-radius: 3px;
   cursor: pointer;
   display: inline-block;
+  background-color: white;
   line-height: 1;
+  transition: 0.2s;
 }
 
-.jmin-button:disabled {
-  cursor: not-allowed;
-  background-color: #f2f2f2;
+.jmin-button:focus {
+  outline: none;
+}
+
+.jmin-button:hover {
+  transition: 0.2s;
+  opacity: 0.6;
 }
 
 // types
 .jmin-button--default {
   color: black;
-  border-color: red;
 }
+
 .jmin-button--primary {
   color: white;
-  background-color: #2182fa;
-  border-color: #2182fa;
+  background-color: rgb(27, 86, 197);
+  border-color: rgb(27, 86, 197);
 }
+
 .jmin-button--danger {
   color: white;
-  background-color: #ff414c;
-  border-color: #ff414c;
+  background-color: rgb(205, 68, 37);
+  border-color: rgb(205, 68, 37);
 }
-.jmin-button--text {
+
+.jmin-button--warning {
   color: black;
+  background-color: rgb(244, 178, 61);
+  border-color: rgb(244, 178, 61);
 }
+
 .jmin-button--link {
-  color: #2182fa;
+  color: rgb(27, 86, 197);
+  border: 0;
+}
+
+.jmin-button--link:hover {
+  text-decoration: underline;
 }
 
 // sizes
 .jmin-button--small {
   font-size: 12px;
-  padding: 10px 16px;
+  padding: 7px 16px;
 }
-.jmin-button--medium {
-  font-size: 14px;
-  padding: 11px 20px;
-}
+
 .jmin-button--large {
   font-size: 16px;
-  padding: 12px 24px;
+  padding: 10px 24px;
+}
+
+.spinner {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid;
+  border-radius: 50%;
+  border-right-color: transparent;
+  -webkit-animation: spin 1000ms infinite linear;
+  -moz-animation: spin 1000ms infinite linear;
+  -ms-animation: spin 1000ms infinite linear;
+  animation: spin 1000ms infinite linear;
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-ms-keyframes spin {
+  100% {
+    -ms-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }

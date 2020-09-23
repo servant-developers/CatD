@@ -11,7 +11,7 @@ export type ButtonType =
   | 'text'
   | 'link';
 export type ButtonSize = 'small' | 'medium' | 'large';
-export type ButtonShape = 'circle' | 'circle-outline' | 'round';
+export type ButtonShape = 'circle' | 'circle-round' | 'round';
 
 export interface ButtonProps {
   text: string;
@@ -127,7 +127,7 @@ const shapes = {
   circle: css`
     border-radius: 50%;
   `,
-  'circle-outline': css`
+  'circle-round': css`
     border-radius: 3em;
   `,
   round: css`

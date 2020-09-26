@@ -1,8 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { action } from '@storybook/addon-actions';
 
-import { Button, ButtonProps } from './Button';
+import Button, { ButtonBaseProps } from './Button';
 
 export default {
   title: 'Example/Button',
@@ -15,29 +14,49 @@ export default {
   },
 } as Meta;
 
-const Template: Story<ButtonProps> = (args: ButtonProps) => (
-  <Button {...args} onClick={action('button clicked')} />
+const Template: Story<ButtonBaseProps> = (args: ButtonBaseProps) => (
+  <Button {...args}>테스트</Button>
 );
 
 export const Primary = Template.bind({});
 Primary.args = {
-  primary: true,
   label: 'Button',
+  type: 'primary',
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Secondary',
+export const Default = Template.bind({});
+Default.args = {
+  label: 'Button',
+  type: 'default',
 };
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Large',
+export const Danger = Template.bind({});
+Danger.args = {
+  label: 'Button',
+  type: 'danger',
 };
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Small',
+export const Loading = Template.bind({});
+Loading.args = {
+  label: 'Button',
+  loading: true,
+};
+
+export const Rounded = Template.bind({});
+Rounded.args = {
+  label: 'Button',
+  rounded: true,
+};
+
+export const Circle = Template.bind({});
+Circle.args = {
+  label: 'Button',
+  shape: 'circle',
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'Button',
+  type: 'primary',
+  disabled: 'true',
 };

@@ -2,11 +2,6 @@ import React from 'react';
 import './button.scss';
 import classNames from 'classnames';
 
-// import styled from '@emotion/styled';
-
-// https://styled-system.com/packages
-// import { space, layout, typography, color } from 'styled-system';
-
 export type SizeType = 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType =
   | 'default'
@@ -16,12 +11,6 @@ export type ButtonType =
   | 'link'
   | 'text';
 export type ButtonShape = 'rectangle' | 'circle';
-
-// export type NativeButtonProps = {
-//   htmlType?: ButtonHTMLType;
-//   onClick?: React.MouseEventHandler<HTMLElement>;
-// } & BaseButtonProps &
-//   Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'>;
 
 export type ButtonBaseProps = {
   loading?: boolean;

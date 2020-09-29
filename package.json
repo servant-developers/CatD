@@ -15,7 +15,8 @@
     "eslint-all": "eslint 'src/**/*.+(js|ts)?(x)'",
     "stylelint-all": "stylelint '**/*.{css,scss,sass}'",
     "typecheck": "tsc",
-    "build:css": "postcss src/styles/tailwind.scss -o src/styles/index.scss"
+    "build:css": "postcss src/styles/tailwind.scss -o src/styles/index.scss",
+    "chromatic": "npx chromatic --project-token muh7h5v9zki"
   },
   "jest": {
     "moduleNameMapper": {
@@ -46,6 +47,7 @@
     "autoprefixer": "^9.8.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
+    "chromatic": "^5.2.0",
     "css-loader": "^4.2.2",
     "eslint": "^7.8.1",
     "eslint-plugin-jest-dom": "^3.2.2",

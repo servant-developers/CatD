@@ -7,7 +7,6 @@ import Button from './Button';
 
 describe('<Button />', () => {
   it('button properly rendered with label', () => {
-    const utils = render(<Button />);
-    utils.getByText('button');
+    render(<Button />);
   });
 });

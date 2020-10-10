@@ -1,11 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import './Text.scss';
+import './Text.css';
 
 export const TextType = {
   primary: 'primary',
   secondary: 'secondary',
-  warning: 'warning',
   danger: 'danger',
 } as const;
 
@@ -21,6 +20,8 @@ export interface TextProps {
   type?: TextType;
   className?: string;
   style?: React.CSSProperties;
+  copyable?: boolean;
+  underline?: boolean;
   children: React.ReactNode;
 }
 
@@ -29,10 +30,12 @@ const Text: React.FC<TextProps> = (props) => {
     disabled = false,
     strong = false,
     ellipsis = false,
+    underline = false,
     type,
     className,
     style,
     children,
+    link,
   } = props;
 
   const textClassName = classNames(
@@ -41,14 +44,16 @@ const Text: React.FC<TextProps> = (props) => {
       disabled,
       strong,
       ellipsis,
-      type,
+      link,
+      underline,
     },
+    [type],
     className
   );
 
   return (
     <div className={textClassName} style={style}>
-      {children}
+      {link ? children : <a href={link}>{children}</a>}
     </div>
   );
 };

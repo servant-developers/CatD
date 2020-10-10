@@ -621,7 +621,57 @@ video {
   }
 }
 
-@import '../Text/Text.scss';
+.text {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  --text-opacity: 1;
+  color: #000;
+  color: rgba(0, 0, 0, var(--text-opacity));
+}
+
+.text.strong {
+  font-weight: 700;
+}
+
+.text.disabled {
+  font-weight: 300;
+  --text-opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.text.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text.primary {
+  --text-opacity: 1;
+  color: #4299e1;
+  color: rgba(66, 153, 225, var(--text-opacity));
+}
+
+.text.secondary {
+  --text-opacity: 1;
+  color: #ed8936;
+  color: rgba(237, 137, 54, var(--text-opacity));
+}
+
+.text.danger {
+  --text-opacity: 1;
+  color: #ed8936;
+  color: rgba(237, 137, 54, var(--text-opacity));
+}
+
+.text.underline {
+  text-decoration: underline;
+}
+
+.text.link:hover {
+  text-decoration: underline;
+}
 
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;

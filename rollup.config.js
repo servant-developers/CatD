@@ -5,6 +5,7 @@ import pkg from './package.json';
 import svgr from '@svgr/rollup';
 import url from 'rollup-plugin-url';
 import scss from 'rollup-plugin-scss';
+import postcss from 'rollup-plugin-postcss';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
@@ -23,11 +24,15 @@ export default {
     url(),
     svgr(),
     scss(),
-    require('tailwindcss'),
-    require('autoprefixer'),
-    require('postcss-preset-env'),
-    require('postcss-import'),
-    require('postcss-nested'),
+    postcss({
+      config: {
+        path: './postcss.config.js',
+      },
+      extensions: ['.css'],
+      extract: true,
+      minimize: isProduction,
+      // modules: true,
+    }),
   ],
   output: [
     {

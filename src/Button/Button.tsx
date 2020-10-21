@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.scss';
+import './button.scss';
 import classNames from 'classnames';
 
 // import styled from '@emotion/styled';

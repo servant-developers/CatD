@@ -33,10 +33,10 @@ const Input = <P extends InputTypes>(props: React.PropsWithChildren<P>) => {
     ...rest
   } = props;
 
-  const [value, setValue] = useState<string | undefined>();
-  const [inputError, setInputError] = useState<string | Error | undefined>(
-    error
-  );
+  // const [value, setValue] = useState<string | undefined>();
+  // const [inputError, setInputError] = useState<string | Error | undefined>(
+  //   error
+  // );
 
   // TODO type number ... 뒤에 단위 붙이는거 구현.
   // TODO type password

@@ -9,7 +9,6 @@ export const TextType = {
 } as const;
 
 // https://engineering.linecorp.com/ko/blog/typescript-enum-tree-shaking/
-
 type TextType = typeof TextType[keyof typeof TextType];
 
 export interface TextProps {
